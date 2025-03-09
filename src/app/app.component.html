@@ -1,0 +1,43 @@
+<!-- Left Pane - Field Groups -->
+<div class="flex h-screen w-full">
+  <div class="w-1/4 bg-gray-100 p-4 border-r">
+    <h2 class="text-lg font-bold mb-4">Field Groups</h2>
+    <ul>
+      <li *ngFor="let group of fieldGroups; let i = index" (click)="selectGroup(i)"
+        class="cursor-pointer p-2 rounded hover:bg-blue-200">
+        {{ group.name }}
+      </li>
+    </ul>
+  </div>
+
+  <!-- Middle Pane - Form Builder -->
+  <div class="flex-grow p-4 border-r">
+    <h2 class="text-xl font-bold mb-4">Form Elements</h2>
+    <div cdkDropList [cdkDropListData]="formElements" (cdkDropListDropped)="drop($event)"
+      class="border border-dashed rounded-lg p-4 min-h-[200px] bg-gray-50">
+      <p class="text-gray-400" *ngIf="formElements.length === 0">Drag & drop fields here</p>
+      <div *ngFor="let item of formElements" cdkDrag (click)="editElement(item)"
+        class="p-2 bg-white shadow rounded mb-2 cursor-pointer">
+        {{ item }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Pane - Available Elements -->
+  <div class="w-1/4 bg-gray-100 p-4">
+    <h2 class="text-lg font-bold mb-4">Elements</h2>
+    <div cdkDropList [cdkDropListData]="availableElements" (cdkDropListDropped)="drop($event)">
+      <div *ngFor="let element of availableElements" cdkDrag class="p-2 bg-white shadow rounded mb-2">
+        {{ element }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Right Drawer - Edit Form Element Properties -->
+<div *ngIf="selectedElement" class="fixed right-0 top-0 h-full w-1/4 bg-white shadow-lg p-4">
+  <h2 class="text-lg font-bold mb-4">Edit Field</h2>
+  <label class="block text-sm font-medium">Field Name</label>
+  <input [(ngModel)]="selectedElement" class="w-full p-2 border rounded" />
+  <button class="mt-4 p-2 bg-blue-500 text-white rounded" (click)="selectedElement = null">Close</button>
+</div>

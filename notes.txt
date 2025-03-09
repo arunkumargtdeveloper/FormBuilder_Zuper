@@ -1,0 +1,19 @@
+ng new form-builder --style=scss
+cd form-builder
+ng add @angular/material
+npm install tailwindcss postcss autoprefixer
+npx tailwindcss init
+
+Configure Tailwind CSS in tailwind.config.js:
+module.exports = {
+  content: ["./src/**/*.{html,ts}"],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+};
+
+Include Tailwind in styles.scss:
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
